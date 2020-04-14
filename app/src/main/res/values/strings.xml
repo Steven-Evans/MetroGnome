@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MetroGnome</string>
+    <string name="step_up">+ 15</string>
+    <string name="step_down">- 15</string>
+    <string name="bpm">BPM</string>
+    <string name="default_bpm">60</string>
+</resources>
