@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/bpmView"
         android:layout_width="84dp"
         android:layout_height="67dp"
         android:layout_marginStart="144dp"
@@ -15,7 +15,7 @@
         android:ems="10"
         android:gravity="center"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="@string/default_bpm"
         android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="@+id/textView"
@@ -30,11 +30,11 @@
         android:layout_marginEnd="144dp"
         android:text="@string/bpm"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="@+id/bpmView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
+        app:layout_constraintStart_toEndOf="@+id/bpmView"
+        app:layout_constraintTop_toTopOf="@+id/bpmView" />
 
     <SeekBar
         android:id="@+id/seekBar2"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/bpmView" />
 
     <Button
         android:id="@+id/button5"
@@ -52,6 +52,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
+        android:onClick="stepDownBPM"
         android:text="@string/step_down"
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,6 +65,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
+        android:onClick="stepUpBPM"
         android:text="@string/step_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
