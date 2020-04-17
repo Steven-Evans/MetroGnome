@@ -9,21 +9,11 @@ import java.util.TimerTask;
 
 public class Metronome {
     private int BPM = 60;
+    private Timer timer;
+    private TimerTask clickTask;
 
-    public Metronome(Context context) {
-        play(context);
-    }
-
-    public void increaseBPM(int diff) {
-        BPM += diff;
-    }
-
-    public void decreaseBPM(int diff) {
-        BPM -= diff;
-    }
-
-    private void play(final Context context) {
-        TimerTask clickTask = new TimerTask() {
+    public Metronome(final Context context) {
+        clickTask = new TimerTask() {
             public void run() {
                 final MediaPlayer mp = MediaPlayer.create(context, R.raw.sound1);
                 mp.start();
@@ -35,8 +25,22 @@ public class Metronome {
                 System.out.println("Task performed on " + new Date());
             }
         };
-        Timer timer = new Timer("Timer");
+    }
+
+    public void increaseBPM(int diff) {
+        BPM += diff;
+    }
+
+    public void decreaseBPM(int diff) {
+        BPM -= diff;
+    }
+
+    public void play() {
+        timer = new Timer("Timer");
         timer.scheduleAtFixedRate(clickTask, 0, 60000/BPM);
     }
 
+    public void pause() {
+        timer.cancel();
+    }
 }
