@@ -6,14 +6,19 @@ import android.media.MediaPlayer;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Metronome {
     private int BPM = 60;
-    private Timer timer;
-    private TimerTask clickTask;
+    private final Runnable clicker;
+    private ScheduledFuture<?> clickerHandle;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public Metronome(final Context context) {
-        clickTask = new TimerTask() {
+        clicker = new Runnable() {
             public void run() {
                 final MediaPlayer mp = MediaPlayer.create(context, R.raw.sound1);
                 mp.start();
@@ -22,25 +27,28 @@ public class Metronome {
                         mp.release();
                     };
                 });
-                System.out.println("Task performed on " + new Date());
             }
         };
     }
 
     public void increaseBPM(int diff) {
         BPM += diff;
+        play();
     }
 
     public void decreaseBPM(int diff) {
         BPM -= diff;
+        play();
     }
 
     public void play() {
-        timer = new Timer("Timer");
-        timer.scheduleAtFixedRate(clickTask, 0, 60000/BPM);
+        if (clickerHandle != null) {
+            clickerHandle.cancel(true);
+        }
+        clickerHandle = scheduler.scheduleAtFixedRate(clicker, 0, 60000/BPM, TimeUnit.MILLISECONDS);
     }
 
     public void pause() {
-        timer.cancel();
+        clickerHandle.cancel(true);
     }
 }

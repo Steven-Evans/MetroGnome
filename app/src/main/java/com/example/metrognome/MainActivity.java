@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stepUpBPM(View view) {
-
+        metronome.increaseBPM(15);
     }
 
     public void stepDownBPM(View view) {
-
+        metronome.decreaseBPM(15);
     }
 
     public void playPause(View v) {
