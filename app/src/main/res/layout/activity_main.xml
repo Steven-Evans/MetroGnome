@@ -16,7 +16,6 @@
         android:gravity="center"
         android:importantForAutofill="no"
         android:inputType="number"
-        android:text="@string/default_bpm"
         android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
