@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="@+id/bpmView" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/bpmBar"
         android:layout_width="232dp"
         android:layout_height="28dp"
         android:layout_marginTop="16dp"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+        app:layout_constraintTop_toBottomOf="@+id/bpmBar" />
 
     <Button
         android:id="@+id/button6"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/playPauseButton"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+        app:layout_constraintTop_toBottomOf="@+id/bpmBar" />
 
     <ImageButton
         android:id="@+id/playPauseButton"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2"
+        app:layout_constraintTop_toBottomOf="@+id/bpmBar"
         app:srcCompat="@android:drawable/ic_media_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

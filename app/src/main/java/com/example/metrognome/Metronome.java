@@ -67,7 +67,7 @@ public class Metronome {
             clickerHandle.cancel(true);
         }
         if (BPM > 0) {
-            clickerHandle = scheduler.scheduleAtFixedRate(clicker, 0, 60000/BPM, TimeUnit.MILLISECONDS);
+            clickerHandle = scheduler.scheduleAtFixedRate(clicker, 500, 60000/BPM, TimeUnit.MILLISECONDS);
         }
         playing = true;
     }
