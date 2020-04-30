@@ -39,51 +39,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         metronome = new Metronome(this);
-        int bpm = metronome.getBPM();
-
 
         bpmView = findViewById(R.id.bpmView);
         bpmView.setText(String.valueOf(metronome.getBPM()));
-        //bpmView.setText(""+BPM);
-
         bpmView.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String numberText = bpmView.getText().toString();
-                //System.out.println("ay" + numberText + s.toString());
                 if (!numberText.equals("") && bpmView.getTag() == null) {
                     int someInt = Integer.parseInt(bpmView.getText().toString());
                     onBPMChange(someInt);
-                    //metronome.setBPM(someInt);
                 }
             }
+            public void afterTextChanged(Editable s) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         });
 
         bpmBar = (SeekBar) findViewById(R.id.bpmBar);
         bpmBar.setMax(MAX_BPM - MIN_BPM);
-        bpmBar.setProgress(bpm - MIN_BPM);
+        bpmBar.setProgress(metronome.getBPM() - MIN_BPM);
         bpmBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //metronome.setBPM(progress);
                 if (fromUser) {
                     bpmView.setText(String.valueOf(progress));
                     onBPMChange(progress + MIN_BPM);
                 }
             }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
-                //        Toast.LENGTH_SHORT).show();
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
     }
 
