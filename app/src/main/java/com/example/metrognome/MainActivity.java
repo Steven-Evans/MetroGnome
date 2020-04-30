@@ -13,10 +13,24 @@ import android.widget.TextView;
 import android.R.drawable;
 
 public class MainActivity extends AppCompatActivity {
+    private final int MIN_BPM = 40;
     private boolean play = false;
     private Metronome metronome;
     private EditText bpmView;
     private SeekBar bpmBar;
+
+    //update all views
+    private void onBPMChange(int bpm) {
+        metronome.setBPM(bpm);
+
+        bpmView = findViewById(R.id.bpmView);
+        bpmView.setTag("notFromUser");
+        bpmView.setText(String.valueOf(bpm));
+        bpmView.setTag(null);
+
+        bpmBar = (SeekBar) findViewById(R.id.bpmBar);
+        bpmBar.setProgress(bpm - MIN_BPM);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         metronome = new Metronome(this);
+        int bpm = metronome.getBPM();
+
+
         bpmView = findViewById(R.id.bpmView);
         bpmBar = (SeekBar) findViewById(R.id.bpmBar);
         bpmView.setText(String.valueOf(metronome.getBPM()));
@@ -39,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String numberText = bpmView.getText().toString();
                 //System.out.println("ay" + numberText + s.toString());
-                if (numberText.equals("")) {
-
-                } else {
+                if (!numberText.equals("") && bpmView.getTag() == null) {
                     int someInt = Integer.parseInt(bpmView.getText().toString());
-                    metronome.setBPM(someInt);
+                    onBPMChange(someInt);
+                    //metronome.setBPM(someInt);
                 }
             }
         });
@@ -51,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
         bpmBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //metronome.setBPM(progress);
-                bpmView.setText(String.valueOf(progress));
+                if (fromUser) {
+                    bpmView.setText(String.valueOf(progress));
+                    onBPMChange(progress + MIN_BPM);
+                }
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
