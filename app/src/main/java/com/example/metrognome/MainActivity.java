@@ -14,6 +14,7 @@ import android.R.drawable;
 
 public class MainActivity extends AppCompatActivity {
     private final int MIN_BPM = 40;
+    private final int MAX_BPM = 240;
     private boolean play = false;
     private Metronome metronome;
     private EditText bpmView;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         bpmView = findViewById(R.id.bpmView);
-        bpmBar = (SeekBar) findViewById(R.id.bpmBar);
         bpmView.setText(String.valueOf(metronome.getBPM()));
         //bpmView.setText(""+BPM);
 
@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bpmBar = (SeekBar) findViewById(R.id.bpmBar);
+        bpmBar.setMax(MAX_BPM - MIN_BPM);
+        bpmBar.setProgress(bpm - MIN_BPM);
         bpmBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //metronome.setBPM(progress);
@@ -85,11 +88,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stepUpBPM(View view) {
-        metronome.increaseBPM(15);
+        int diff = 15;
+        if (metronome.getBPM() + diff <= MAX_BPM) {
+            metronome.increaseBPM(diff);
+        } else {
+            metronome.setBPM(MAX_BPM);
+        }
+        onBPMChange(metronome.getBPM());
     }
 
     public void stepDownBPM(View view) {
-        metronome.decreaseBPM(15);
+        int diff = 15;
+        if (metronome.getBPM() - diff >= MIN_BPM) {
+            metronome.decreaseBPM(diff);
+        } else {
+            metronome.setBPM(MIN_BPM);
+        }
+        onBPMChange(metronome.getBPM());
     }
 
     public void playPause(View v) {
