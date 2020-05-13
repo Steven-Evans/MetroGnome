@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         bpmView = findViewById(R.id.bpmView);
         bpmView.setTag("notFromUser");
-        bpmView.setText(String.valueOf(bpm));
+        String bpmString = String.valueOf(bpm);
+        bpmView.setText(bpmString);
+        bpmView.setSelection(bpmString.length());
         bpmView.setTag(null);
 
         bpmBar = (SeekBar) findViewById(R.id.bpmBar);
