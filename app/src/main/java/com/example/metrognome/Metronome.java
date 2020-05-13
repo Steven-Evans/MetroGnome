@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Metronome {
     private int BPM;
     private boolean playing = false;
-    private final Runnable clicker;
+    private Runnable clicker;
     private ScheduledFuture<?> clickerHandle;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -35,6 +35,13 @@ public class Metronome {
                 });
             }
         };
+    }
+
+    public void setRunnable(Runnable runnable) {
+        clicker = runnable;
+        if (playing) {
+            play();
+        }
     }
 
     public int getBPM() {

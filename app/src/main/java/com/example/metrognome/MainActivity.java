@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.R.drawable;
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private final int MIN_BPM = 40;
     private final int MAX_BPM = 240;
     private boolean play = false;
-    private Metronome metronome;
+    private Metrognome metronome;
     private EditText bpmView;
     private SeekBar bpmBar;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        metronome = new Metronome(this);
+        metronome = new Metrognome(this, (ImageView) this.findViewById(R.id.gnomeView));
 
         bpmView = findViewById(R.id.bpmView);
         bpmView.setText(String.valueOf(metronome.getBPM()));
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         });
 
-        bpmBar = (SeekBar) findViewById(R.id.bpmBar);
+        bpmBar = findViewById(R.id.bpmBar);
         bpmBar.setMax(MAX_BPM - MIN_BPM);
         bpmBar.setProgress(metronome.getBPM() - MIN_BPM);
         bpmBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
