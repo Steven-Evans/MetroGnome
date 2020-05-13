@@ -17,25 +17,26 @@ public class Metrognome extends Metronome {
     public Metrognome(final Context context, final ImageView gnomeView) {
         super(context);
 
+        final int[] frames = context.getResources().getIntArray(R.array.frames);
+        final int maxFrames = frames.length;
+        setGnomeImage(context, gnomeView, frames[animationCounter]);
+
         Runnable gnomeClicker = new Runnable() {
             public void run() {
-            final MediaPlayer mp = MediaPlayer.create(context, R.raw.sound1);
-            mp.start();
-            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                };
-            });
+                final MediaPlayer mp = MediaPlayer.create(context, R.raw.sound1);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    };
+                });
 
-            int[] frames = context.getResources().getIntArray(R.array.frames);
-            int maxFrames = frames.length;
+               /* InputStream is = context.getResources().openRawResource(R.raw.);
+                int sizeOfInputStram = is.available();*/
 
-           /* InputStream is = context.getResources().openRawResource(R.raw.);
-            int sizeOfInputStram = is.available();*/
-
-            setGnomeImage(context, gnomeView, frames[animationCounter]);
-            animationCounter++;
-            animationCounter %= maxFrames;
+                setGnomeImage(context, gnomeView, frames[animationCounter]);
+                animationCounter++;
+                animationCounter %= maxFrames;
             }
         };
         super.setRunnable(gnomeClicker);
